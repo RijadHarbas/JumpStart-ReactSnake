@@ -17,8 +17,10 @@ class Canvas extends React.Component {
         this.drawApple = this.drawApple.bind(this);
         this.createApple = this.createApple.bind(this);
 
+        this.gameLoop = this.gameLoop.bind(this);
 
         this.state = {
+            previousTime: null,
             directionModX: 0,
             directionModY: -10,
             snake: {
@@ -56,8 +58,7 @@ class Canvas extends React.Component {
     }
 
     componentDidMount() {
-        this.drawSnake();
-        this.clearGameArea();
+        this.gameLoop();
     }
 
     clearGameArea() {
@@ -74,7 +75,14 @@ class Canvas extends React.Component {
     }
 
     moveSnake() {
-
+        this.state.snake.appendNewHead(this.state.directionModX, this.state.directionModY);
+        // Did we land on an apple? If so increase the score
+        // if (currentApple && currentApple.x === snake.getHead().x && currentApple.y === snake.getHead().y) {
+        //     score.innerText = parseInt(score.innerText) + 10;
+        //     // We ate the apple
+        //     currentApple = null;
+        //     snake.appendNewTail();
+        // }
     }
 
     drawApple() {
@@ -83,6 +91,20 @@ class Canvas extends React.Component {
 
     createApple() {
 
+    }
+
+    gameLoop(timestamp) {
+        if (!this.state.previousTime) {
+            this.state.previousTime = timestamp;
+        }
+        // How fast the snake is rendered depends on the difficulty, Higher means easier
+        if (timestamp - this.state.previousTime >= 100) {
+            this.state.previousTime = timestamp;
+            this.clearGameArea();
+            this.drawSnake();
+            this.moveSnake();
+        }
+        requestAnimationFrame(this.gameLoop);
     }
 
     render() {
