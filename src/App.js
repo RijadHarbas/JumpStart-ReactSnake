@@ -1,7 +1,16 @@
+import React from "react"
+import Canvas from "./gamelogic/Canvas"
+
 class App extends React.Component {
     render() {
         return (
-            <h1>Foo</h1>
+            <div>
+                <h1>Foo</h1>
+                <Canvas />
+            </div>
+
         )
     }
 }
+
+export default App;
