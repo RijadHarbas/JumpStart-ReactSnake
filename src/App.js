@@ -10,10 +10,10 @@ class App extends React.Component {
 
         this.updateStatus = this.updateStatus.bind(this);
         this.updateScore = this.updateScore.bind(this);
-        this.state = { score: 0 }
+        this.state = { score: 0, statusVisibility: "Status-hide" }
     }
     updateStatus() {
-
+        this.setState({ statusVisibility: "Status-show" })
     }
     updateScore(newScore) {
         this.setState({ score: newScore })
@@ -23,10 +23,9 @@ class App extends React.Component {
             <div className="App">
                 <h1>SNAAAAAKES!!!</h1>
                 <Score score={this.state.score} />
-                <Canvas height={"250px"} width={"250px"} oldScore={this.state.score} updateScore={this.updateScore} />
-                <Status />
+                <Canvas height={"250px"} width={"250px"} oldScore={this.state.score} updateScore={this.updateScore} onGameOver={this.updateStatus} />
+                <Status visibility={this.state.statusVisibility} />
             </div>
-
         )
     }
 }

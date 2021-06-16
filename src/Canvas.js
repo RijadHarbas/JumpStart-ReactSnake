@@ -162,6 +162,7 @@ class Canvas extends React.Component {
             this.drawApple();
             this.moveSnake();
             if (this.isGameOver()) {
+                this.props.onGameOver();
                 return;
             }
         }

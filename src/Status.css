@@ -1,0 +1,7 @@
+.Status-hide {
+    visibility: hidden;
+}
+
+.Status-show {
+    visibility: visible;
+}
