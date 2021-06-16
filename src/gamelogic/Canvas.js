@@ -5,10 +5,8 @@ class Canvas extends React.Component {
         super(props);
 
         this.canvas = null
-        this.context = null
         this.setCanvasRef = element => {
             this.canvas = element;
-            this.context = element.getContext("2d");
             this.setState({ context: element.getContext("2d") })
         }
 
@@ -20,6 +18,7 @@ class Canvas extends React.Component {
         this.gameLoop = this.gameLoop.bind(this);
 
         this.state = {
+            currentApple: null,
             previousTime: null,
             directionModX: 0,
             directionModY: -10,
@@ -86,11 +85,27 @@ class Canvas extends React.Component {
     }
 
     drawApple() {
+        this.state.context.fillStyle = "#FF0000";
+        if (!this.state.currentApple) {
+            this.setState({ currentApple: this.createApple() });
+        }
+        const isInvalidPosition = this.state.snake.parts
+            .some(part => part.x === this.state.currentApple.x && part.y === this.state.currentApple.y);
 
+        if (isInvalidPosition) {
+            this.setState({ currentApple: null });
+            return;
+        }
+        this.state.context.fillRect(this.state.currentApple.x, this.state.currentApple.y, 10, 10);
     }
 
     createApple() {
-
+        let x = Math.floor(Math.random() * (this.canvas.width - 20)) + 10;
+        // Remove the single digits, e.g. 427 becomes 420
+        x = x - x % 10;
+        let y = Math.floor(Math.random() * (this.canvas.height - 20)) + 10;
+        y = y - y % 10;
+        return { x: x, y: y };
     }
 
     gameLoop(timestamp) {
@@ -102,6 +117,7 @@ class Canvas extends React.Component {
             this.setState({ previousTime: timestamp })
             this.clearGameArea();
             this.drawSnake();
+            this.drawApple();
             this.moveSnake();
         }
         requestAnimationFrame(this.gameLoop);
