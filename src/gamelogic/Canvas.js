@@ -9,6 +9,7 @@ class Canvas extends React.Component {
         this.setCanvasRef = element => {
             this.canvas = element;
             this.context = element.getContext("2d");
+            this.setState({ context: element.getContext("2d") })
         }
 
         this.clearGameArea = this.clearGameArea.bind(this);
@@ -16,7 +17,6 @@ class Canvas extends React.Component {
         this.moveSnake = this.moveSnake.bind(this);
         this.drawApple = this.drawApple.bind(this);
         this.createApple = this.createApple.bind(this);
-
         this.gameLoop = this.gameLoop.bind(this);
 
         this.state = {
@@ -58,19 +58,19 @@ class Canvas extends React.Component {
     }
 
     componentDidMount() {
-        this.gameLoop();
+        requestAnimationFrame(this.gameLoop);
     }
 
     clearGameArea() {
-        this.context.clearRect(0, 0, this.canvas.height, this.canvas.width);
+        this.state.context.clearRect(0, 0, this.canvas.height, this.canvas.width);
     }
 
     drawSnake() {
         for (const part of this.state.snake.parts) {
-            this.context.fillStyle = "#D9ED92"
-            this.context.strokeStyle = "#168AAD";
-            this.context.fillRect(part.x, part.y, 10, 10);
-            this.context.strokeRect(part.x, part.y, 10, 10);
+            this.state.context.fillStyle = "#D9ED92"
+            this.state.context.strokeStyle = "#168AAD";
+            this.state.context.fillRect(part.x, part.y, 10, 10);
+            this.state.context.strokeRect(part.x, part.y, 10, 10);
         }
     }
 
@@ -95,11 +95,11 @@ class Canvas extends React.Component {
 
     gameLoop(timestamp) {
         if (!this.state.previousTime) {
-            this.state.previousTime = timestamp;
+            this.setState({ previousTime: timestamp });
         }
         // How fast the snake is rendered depends on the difficulty, Higher means easier
         if (timestamp - this.state.previousTime >= 100) {
-            this.state.previousTime = timestamp;
+            this.setState({ previousTime: timestamp })
             this.clearGameArea();
             this.drawSnake();
             this.moveSnake();
