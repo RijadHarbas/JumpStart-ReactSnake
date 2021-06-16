@@ -1,5 +1,5 @@
 import React from "react"
-import Canvas from "./Canvas"
+import Game from "./Game"
 import Status from "./Status"
 import Score from "./Score"
 import "./App.css"
@@ -23,7 +23,7 @@ class App extends React.Component {
             <div className="App">
                 <h1>SNAAAAAKES!!!</h1>
                 <Score score={this.state.score} />
-                <Canvas height={"250px"} width={"250px"} oldScore={this.state.score} updateScore={this.updateScore} onGameOver={this.updateStatus} />
+                <Game height={"250px"} width={"250px"} oldScore={this.state.score} updateScore={this.updateScore} onGameOver={this.updateStatus} />
                 <Status visibility={this.state.statusVisibility} />
             </div>
         )

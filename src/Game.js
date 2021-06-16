@@ -1,7 +1,7 @@
 import React from "react";
-import "./Canvas.css"
+import "./Game.css"
 
-class Canvas extends React.Component {
+class Game extends React.Component {
     constructor(props) {
         super(props);
 
@@ -179,4 +179,4 @@ class Canvas extends React.Component {
     }
 }
 
-export default Canvas;
+export default Game;
