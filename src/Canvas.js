@@ -86,8 +86,8 @@ class Canvas extends React.Component {
         // Did we land on an apple? If so increase the score
         if (this.state.currentApple && this.state.currentApple.x === this.state.snake.getHead().x
             && this.state.currentApple.y === this.state.snake.getHead().y) {
-            // score.innerText = parseInt(score.innerText) + 10;
-            // We ate the apple
+            // We ate the apple; Increase the score
+            this.props.updateScore(this.props.oldScore + 10);
             this.setState({ currentApple: null });
             this.state.snake.appendNewTail();
         }
