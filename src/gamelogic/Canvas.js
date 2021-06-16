@@ -15,6 +15,7 @@ class Canvas extends React.Component {
         this.moveSnake = this.moveSnake.bind(this);
         this.drawApple = this.drawApple.bind(this);
         this.createApple = this.createApple.bind(this);
+        this.handleKeyboardEvents = this.handleKeyboardEvents.bind(this);
         this.gameLoop = this.gameLoop.bind(this);
 
         this.state = {
@@ -58,6 +59,11 @@ class Canvas extends React.Component {
 
     componentDidMount() {
         requestAnimationFrame(this.gameLoop);
+        document.addEventListener("keydown", this.handleKeyboardEvents);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyboardEvents);
     }
 
     clearGameArea() {
@@ -106,6 +112,26 @@ class Canvas extends React.Component {
         let y = Math.floor(Math.random() * (this.canvas.height - 20)) + 10;
         y = y - y % 10;
         return { x: x, y: y };
+    }
+
+    handleKeyboardEvents(event) {
+        if (event.key === "a") {
+            if (this.state.directionModX !== 10) {
+                this.setState({ directionModX: -10, directionModY: 0 })
+            }
+        } else if (event.key === "d") {
+            if (this.state.directionModX !== -10) {
+                this.setState({ directionModX: 10, directionModY: 0 })
+            }
+        } else if (event.key === "w") {
+            if (this.state.directionModY !== 10) {
+                this.setState({ directionModX: 0, directionModY: -10 })
+            }
+        } else if (event.key === "s") {
+            if (this.state.directionModY !== -10) {
+                this.setState({ directionModX: 0, directionModY: 10 })
+            }
+        }
     }
 
     gameLoop(timestamp) {
