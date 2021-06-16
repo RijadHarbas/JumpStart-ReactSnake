@@ -16,6 +16,7 @@ class Canvas extends React.Component {
         this.drawApple = this.drawApple.bind(this);
         this.createApple = this.createApple.bind(this);
         this.handleKeyboardEvents = this.handleKeyboardEvents.bind(this);
+        this.isGameOver = this.isGameOver.bind(this);
         this.gameLoop = this.gameLoop.bind(this);
 
         this.state = {
@@ -135,6 +136,19 @@ class Canvas extends React.Component {
         }
     }
 
+    isGameOver() {
+        const head = this.state.snake.getHead();
+        let isOutOfBounds = false;
+        isOutOfBounds = head.x < 0 || head.y < 0;
+        isOutOfBounds = isOutOfBounds || head.x >= this.canvas.width || head.y >= this.canvas.height;
+
+        const isCollidedWith = this.state.snake.parts
+            .slice(0, -1)
+            .some(part => part.x === head.x && part.y === head.y);
+
+        return isOutOfBounds || isCollidedWith;
+    }
+
     gameLoop(timestamp) {
         if (!this.state.previousTime) {
             this.setState({ previousTime: timestamp });
@@ -146,6 +160,9 @@ class Canvas extends React.Component {
             this.drawSnake();
             this.drawApple();
             this.moveSnake();
+            if (this.isGameOver()) {
+                return;
+            }
         }
         requestAnimationFrame(this.gameLoop);
     }
