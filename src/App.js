@@ -6,7 +6,7 @@ class App extends React.Component {
         return (
             <div>
                 <h1>Foo</h1>
-                <Canvas />
+                <Canvas height={"250px"} width={"250px"} />
             </div>
 
         )
