@@ -82,12 +82,13 @@ class Canvas extends React.Component {
     moveSnake() {
         this.state.snake.appendNewHead(this.state.directionModX, this.state.directionModY);
         // Did we land on an apple? If so increase the score
-        // if (currentApple && currentApple.x === snake.getHead().x && currentApple.y === snake.getHead().y) {
-        //     score.innerText = parseInt(score.innerText) + 10;
-        //     // We ate the apple
-        //     currentApple = null;
-        //     snake.appendNewTail();
-        // }
+        if (this.state.currentApple && this.state.currentApple.x === this.state.snake.getHead().x
+            && this.state.currentApple.y === this.state.snake.getHead().y) {
+            // score.innerText = parseInt(score.innerText) + 10;
+            // We ate the apple
+            this.setState({ currentApple: null });
+            this.state.snake.appendNewTail();
+        }
     }
 
     drawApple() {
