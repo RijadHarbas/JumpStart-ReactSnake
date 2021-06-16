@@ -57,10 +57,11 @@ class Canvas extends React.Component {
 
     componentDidMount() {
         this.drawSnake();
+        this.clearGameArea();
     }
 
     clearGameArea() {
-        this.context.clearRect(0, 0, this.props.height, this.props.width);
+        this.context.clearRect(0, 0, this.canvas.height, this.canvas.width);
     }
 
     drawSnake() {
