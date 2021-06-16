@@ -1,11 +1,13 @@
 import React from "react"
-import Canvas from "./gamelogic/Canvas"
+import Canvas from "./Canvas"
+import "./App.css"
 
 class App extends React.Component {
     render() {
         return (
-            <div>
-                <h1>Foo</h1>
+            <div className="App">
+                <h1>SNAAAAAKES!!!</h1>
+                <h2>Your score: <span id="score">0</span></h2>
                 <Canvas height={"250px"} width={"250px"} />
             </div>
 

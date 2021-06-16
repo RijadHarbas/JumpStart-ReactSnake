@@ -1,4 +1,5 @@
 import React from "react";
+import "./Canvas.css"
 
 class Canvas extends React.Component {
     constructor(props) {
@@ -169,7 +170,7 @@ class Canvas extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="Game">
                 <canvas ref={this.setCanvasRef} {...this.props}>A snake game</canvas>
             </div>
 

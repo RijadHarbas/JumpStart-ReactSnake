@@ -1,0 +1,22 @@
+body {
+    background-color: #2A9D8F;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 10vh 0;
+    background-color: #E76F51;
+}
+
+
+.hide {
+    visibility: hidden;
+}
+
+.difficulty-selector {
+    text-align: center;
+}
