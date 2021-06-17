@@ -1,1 +1,1 @@
-A simple version of of the classic game "Snake" made using React.
+A simple version of the classic game "Snake" made with React.
