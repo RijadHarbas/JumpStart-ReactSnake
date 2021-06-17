@@ -11,6 +11,13 @@ class Game extends React.Component {
             this.setState({ context: element.getContext("2d") })
         }
 
+        // Clean up the props, so that we can pass them to the canvas DOM element when rendering
+        const { oldScore, updateScore, onGameOver, ...otherProps } = this.props;
+        this.oldScore = oldScore
+        this.updateScore = updateScore
+        this.onGameOver = onGameOver
+        this.otherProps = otherProps
+
         this.clearGameArea = this.clearGameArea.bind(this);
         this.drawSnake = this.drawSnake.bind(this);
         this.moveSnake = this.moveSnake.bind(this);
@@ -87,7 +94,7 @@ class Game extends React.Component {
         if (this.state.currentApple && this.state.currentApple.x === this.state.snake.getHead().x
             && this.state.currentApple.y === this.state.snake.getHead().y) {
             // We ate the apple; Increase the score
-            this.props.updateScore(this.props.oldScore + 10);
+            this.updateScore(this.oldScore + 10);
             this.setState({ currentApple: null });
             this.state.snake.appendNewTail();
         }
@@ -162,7 +169,7 @@ class Game extends React.Component {
             this.drawApple();
             this.moveSnake();
             if (this.isGameOver()) {
-                this.props.onGameOver();
+                this.onGameOver();
                 return;
             }
         }
@@ -172,7 +179,7 @@ class Game extends React.Component {
     render() {
         return (
             <div className="Game">
-                <canvas ref={this.setCanvasRef} {...this.props}>A snake game</canvas>
+                <canvas ref={this.setCanvasRef} {...this.otherProps}>A snake game</canvas>
             </div>
 
         )
