@@ -80,6 +80,7 @@ class Game extends React.Component {
     }
 
     drawSnake() {
+        // TODO: Copy context first. Modify it, use set-state
         for (const part of this.state.snake.parts) {
             this.state.context.fillStyle = "#D9ED92"
             this.state.context.strokeStyle = "#168AAD";
@@ -101,6 +102,7 @@ class Game extends React.Component {
     }
 
     drawApple() {
+        // TODO: Copy context first. Modify it, use set-state
         this.state.context.fillStyle = "#FF0000";
         if (!this.state.currentApple) {
             this.setState({ currentApple: this.createApple() });
