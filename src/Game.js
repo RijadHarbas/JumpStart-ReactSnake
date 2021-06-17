@@ -155,7 +155,7 @@ class Game extends React.Component {
             this.setState({ previousTime: timestamp });
         }
         // How fast the snake is rendered depends on the difficulty, Higher means easier
-        if (timestamp - this.state.previousTime >= 100) {
+        if (timestamp - this.state.previousTime >= this.props.difficulty) {
             this.setState({ previousTime: timestamp })
             this.clearGameArea();
             this.drawSnake();
